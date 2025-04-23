@@ -1,0 +1,43 @@
+<html>
+<body>
+    <h2>Upload and Share Files</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" required />
+        <label for="accessControl">Access Control:</label>
+        <select id="accessControl">
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+        </select>
+        <button type="submit">Upload File</button>
+    </form>
+
+    <h3>Shared File URL</h3>
+    <p id="sharedUrl"></p>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let file = document.getElementById('fileInput').files[0];
+            let accessControl = document.getElementById('accessControl').value;
+            let formData = new FormData();
+            formData.append('file', file);
+
+            fetch('https://fileaccess-fjaaa3c3dxahhxct.eastus-01.azurewebsites.net/api/fileUploadFunction?access=' + accessControl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.sharedUrl) {
+                    document.getElementById('sharedUrl').innerHTML = `
+                        File uploaded successfully. Share this URL: <a href="${data.sharedUrl}" target="_blank">${data.sharedUrl}</a>
+                    `;
+                } else {
+                    document.getElementById('sharedUrl').innerHTML = 'File uploaded successfully, but it is private.';
+                }
+            })
+            .catch(error => console.error('Error uploading file:', error));
+        });
+    </script>
+</body>
+</html>
