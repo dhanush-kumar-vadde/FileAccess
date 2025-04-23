@@ -1,0 +1,22 @@
+{
+  "name": "file-upload-app",
+  "version": "1.0.0",
+  "description": "A simple file upload application with Azure Functions",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server .",
+    "build": "echo 'No build steps required'",
+    "deploy": "echo 'No deploy steps required'"
+  },
+  "dependencies": {
+    "http-server": "^14.0.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.0"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "author": "Dhanush Kumar Vadde",
+  "license": "ISC"
+}
